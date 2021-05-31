@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +24,7 @@ public class CityService {
 	
 	@Transactional(readOnly = true)
 	public List<CityDTO> findAll() {
-		List<City> list = repository.findAll();
+		List<City> list = repository.findAll(Sort.by("name"));
 		return list.stream().map(x -> new CityDTO(x)).collect(Collectors.toList());		
 	}
 	
